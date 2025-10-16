@@ -1,29 +1,66 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+
+import { Badge } from "@/components/ui/badge";
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+
+const ContactSchema = z.object({
+  firstName: z.string().min(1, "First name is required"),
+  lastName: z.string().min(1, "Last name is required"),
+  email: z.string().email("Enter a valid email address"),
+  company: z.string().optional(),
+  subject: z.string().min(1, "Please select a subject"),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+});
+
+type ContactFormValues = z.infer<typeof ContactSchema>;
 
 export default function ContactPage() {
   const [status, setStatus] = useState<string | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const form = useForm<ContactFormValues>({
+    resolver: zodResolver(ContactSchema),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      company: "",
+      subject: "",
+      message: "",
+    },
+  });
+
+  const onSubmit = async (values: ContactFormValues) => {
     setStatus("Sending...");
 
-    const formData = new FormData(e.currentTarget);
     const res = await fetch("/api/contact", {
       method: "POST",
-      body: JSON.stringify(Object.fromEntries(formData)),
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(values),
     });
 
-    if (res.ok) {
-      setStatus("Message sent successfully!");
-      e.currentTarget.reset();
+    const data = await res.json();
+
+    if (data.success === true) {
+      setStatus("✅ Message sent successfully!");
+      form.reset();
     } else {
-      setStatus("Something went wrong. Please try again.");
+      setStatus("❌ Something went wrong. Please try again.");
     }
   };
 
@@ -35,85 +72,148 @@ export default function ContactPage() {
             Contact
           </Badge>
         </div>
+
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900">Contact Us</h1>
           <p className="mt-4 text-gray-600">
-            We’d love to hear from you. Fill out the form and we’ll get back to
-            you shortly.
+            We’d love to hear from you. Fill out the form and we’ll get back to you shortly.
           </p>
         </div>
 
-        {/* Contact Form */}
-        <form
-          onSubmit={handleSubmit}
-          className="bg-white shadow-lg rounded-2xl p-8 space-y-6"
-        >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <input
-              type="text"
-              name="firstName"
-              placeholder="First Name"
-              required
-              className="border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-600 w-full"
-            />
-            <input
-              type="text"
-              name="lastName"
-              placeholder="Last Name"
-              required
-              className="border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-600 w-full"
-            />
-          </div>
-
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            required
-            className="border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-600 w-full"
-          />
-
-          <input
-            type="text"
-            name="company"
-            placeholder="Company (optional)"
-            className="border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-600 w-full"
-          />
-
-          <select
-            name="subject"
-            required
-            className="border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-600 w-full"
+        {/* Form */}
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="bg-white shadow-lg rounded-2xl p-8 space-y-6"
           >
-            <option value="">Select a Subject</option>
-            <option value="General Inquiry">General Inquiry</option>
-            <option value="Partnership">Partnership</option>
-            <option value="Support">Support</option>
-            <option value="Careers">Careers</option>
-          </select>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <FormField
+                control={form.control}
+                name="firstName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        placeholder="First Name"
+                        {...field}
+                        className="border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-600 w-full"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-          <textarea
-            name="message"
-            placeholder="Your message..."
-            rows={5}
-            required
-            className="border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-600 w-full"
-          />
+              <FormField
+                control={form.control}
+                name="lastName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        placeholder="Last Name"
+                        {...field}
+                        className="border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-600 w-full"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
-          <button
-            type="submit"
-            className="bg-green-700 text-white px-6 py-3 rounded-xl font-semibold hover:bg-green-800 transition-all"
-          >
-            Send Message
-          </button>
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      type="email"
+                      placeholder="Email"
+                      {...field}
+                      className="border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-600 w-full"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          {status && (
-            <p className="text-center text-sm text-gray-600 mt-2">{status}</p>
-          )}
-        </form>
+            <FormField
+              control={form.control}
+              name="company"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      placeholder="Company (optional)"
+                      {...field}
+                      className="border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-600 w-full"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-        {/* Map */}
+            <FormField
+              control={form.control}
+              name="subject"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <SelectTrigger className="border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-600 w-full">
+                        <SelectValue placeholder="Select a Subject" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="General Inquiry">General Inquiry</SelectItem>
+                        <SelectItem value="Partnership">Partnership</SelectItem>
+                        <SelectItem value="Support">Support</SelectItem>
+                        <SelectItem value="Careers">Careers</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="message"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Textarea
+                      placeholder="Your message..."
+                      rows={5}
+                      {...field}
+                      className="border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-green-600 w-full"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <Button
+              type="submit"
+              className="bg-green-700 text-white px-6 py-3 rounded-xl font-semibold hover:bg-green-800 transition-all"
+              disabled={form.formState.isSubmitting}
+            >
+              {form.formState.isSubmitting ? "Sending..." : "Send Message"}
+            </Button>
+
+            {status && (
+              <p className="text-center text-sm text-gray-600 mt-2">{status}</p>
+            )}
+          </form>
+        </Form>
+
+        {/* Map Section */}
         <div className="mt-12">
           <h2 className="text-2xl font-bold mb-4">Our Location</h2>
           <iframe
