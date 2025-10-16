@@ -109,7 +109,7 @@ const Contact = () => {
             >
               <option value="">Select a subject</option>
               <option value="unswayed">Unswayed - Employment Platform</option>
-              <option value="dot">DOT - AI Interviewer</option>
+              <option value="dot">DOT</option>
               <option value="partnership">Partnership Opportunities</option>
               <option value="demo">Schedule a Demo</option>
               <option value="support">Technical Support</option>
