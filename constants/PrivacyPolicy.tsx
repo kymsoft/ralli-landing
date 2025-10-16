@@ -5,7 +5,7 @@ export const privacyPolicyContent = {
       {
         title: null,
         description:
-          "This Privacy Policy describes our policies and procedures on the collection, use, and disclosure of your information when you use the service and informs you about your privacy rights and how the law protects you.",
+          "This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy.",
       },
       {
         title: null,
@@ -22,7 +22,7 @@ export const privacyPolicyContent = {
         variant: "h6",
         color: "#00305B",
         description:
-          "The words with initial capitalization have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or plural.",
+          "The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.",
       },
       {
         title: "Definitions",
@@ -35,21 +35,21 @@ export const privacyPolicyContent = {
         variant: "h6",
         color: "#00305B",
         description:
-          '"Account" means a unique account created for you to access our service or parts of our service.',
+          '"Account" means a unique account created for You to access our Service or parts of our Service.',
       },
       {
         title: "Affiliate",
         variant: "h6",
         color: "#00305B",
         description:
-          '"Affiliate" means an entity that controls, is controlled by, or is under common control with a party, where "control" means ownership of 50% or more of the shares, equity interest, or other securities entitled to vote for the election of directors or other managing authority.',
+          'Affiliate means an entity that controls, is controlled by or is under common control with a party, where "control" means ownership of 50% or more of the shares, equity interest or other securities entitled to vote for election of directors or other managing authority.',
       },
       {
         title: "Application",
         variant: "h6",
         color: "#00305B",
         description:
-          '"Application" refers to Unswayed, the software program provided by the company.',
+          '"Application" refers to Unswayed, the software program provided by the Company.',
       },
       {
         title: "Business",

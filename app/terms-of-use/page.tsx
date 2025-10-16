@@ -72,7 +72,7 @@ export default function TermsAndConditions() {
 
         {/* Contact Info */}
         <p className="text-slate-800 text-sm sm:text-base font-light leading-7 md:pl-4">
-          By email: <span className="font-medium">contact@rallitechnologies.onmicrosoft.com</span>
+          By email: <span className="font-medium">contact@rallitechnologies.online</span>
         </p>
       </div>
 
