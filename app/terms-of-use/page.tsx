@@ -26,7 +26,7 @@ export default function TermsAndConditions() {
         </p>
 
         {/* Intro Paragraph */}
-        <p className="mt-2 text-black text-md sm:text-base font-light leading-7 pb-4">
+        <p className="mt-2 text-black text-md sm:text-base  leading-7 pb-4">
           {data?.para}
         </p>
 
@@ -51,7 +51,7 @@ export default function TermsAndConditions() {
             )}
 
             {item?.description && (
-              <p className="text-black text-md sm:text-base font-light leading-7 mt-2">
+              <p className="text-black text-md sm:text-base  leading-7 mt-2">
                 {item.description}
               </p>
             )}
@@ -63,7 +63,7 @@ export default function TermsAndConditions() {
             )}
 
             {item?.subDescription && (
-              <p className="text-black text-md sm:text-base font-light leading-7 pl-4">
+              <p className="text-black text-md sm:text-base  leading-7 pl-4">
                 {item.subDescription}
               </p>
             )}
@@ -71,7 +71,7 @@ export default function TermsAndConditions() {
         ))}
 
         {/* Contact Info */}
-        <p className="text-black text-md sm:text-base font-light leading-7 md:pl-4">
+        <p className="text-black text-md sm:text-base  leading-7 md:pl-4">
           By email: <span className="font-medium">contact@rallitechnologies.online</span>
         </p>
       </div>
