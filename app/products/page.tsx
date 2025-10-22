@@ -161,7 +161,7 @@ export default function ProductsPage() {
                 <Card className="relative bg-card/80 backdrop-blur-md border-border/50 hover:border-primary/50 transition-all duration-500 hover-lift">
                   <CardContent className="p-8">
                     <Image
-                      src="/unswayed-dashboard.png"
+                      src="/unswayed-board.png"
                       alt="Unswayed Platform Mockup"
                       width={450}
                       height={330}
