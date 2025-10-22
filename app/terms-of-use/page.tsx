@@ -21,12 +21,12 @@ export default function TermsAndConditions() {
       {/* Scrollable Content */}
       <div className="max-h-[600px] overflow-y-auto py-4 px-4 md:px-6 lg:px-8">
         {/* Last Updated */}
-        <p className="text-primary text-sm sm:text-base font-medium leading-relaxed">
+        <p className="text-primary text-md sm:text-base font-medium leading-relaxed">
           Last updated: {data?.time}
         </p>
 
         {/* Intro Paragraph */}
-        <p className="mt-2 text-slate-800 text-sm sm:text-base font-light leading-7 pb-4">
+        <p className="mt-2 text-black text-md sm:text-base font-light leading-7 pb-4">
           {data?.para}
         </p>
 
@@ -51,7 +51,7 @@ export default function TermsAndConditions() {
             )}
 
             {item?.description && (
-              <p className="text-slate-800 text-sm sm:text-base font-light leading-7 mt-2">
+              <p className="text-black text-md sm:text-base font-light leading-7 mt-2">
                 {item.description}
               </p>
             )}
@@ -63,7 +63,7 @@ export default function TermsAndConditions() {
             )}
 
             {item?.subDescription && (
-              <p className="text-slate-800 text-sm sm:text-base font-light leading-7 pl-4">
+              <p className="text-black text-md sm:text-base font-light leading-7 pl-4">
                 {item.subDescription}
               </p>
             )}
@@ -71,7 +71,7 @@ export default function TermsAndConditions() {
         ))}
 
         {/* Contact Info */}
-        <p className="text-slate-800 text-sm sm:text-base font-light leading-7 md:pl-4">
+        <p className="text-black text-md sm:text-base font-light leading-7 md:pl-4">
           By email: <span className="font-medium">contact@rallitechnologies.online</span>
         </p>
       </div>
